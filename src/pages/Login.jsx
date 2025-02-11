@@ -24,9 +24,9 @@ export default function LoginPage() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Login failed");
 
-      localStorage.setItem("token", data.token); // Save JWT for authentication
+      localStorage.setItem("token", data.token);
       alert("Login successful!");
-      navigate("/home"); // Redirect to dashboard after login
+      navigate("/");
     } catch (err) {
       setError(err.message);
     } finally {
