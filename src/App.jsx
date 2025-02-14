@@ -10,21 +10,26 @@ import PropertyDetail from './components/PropertyDetail'
 import Profile from './pages/Profile'
 import MyProfile from './components/MyProfile'
 import ChangePassword from './components/ChangePassword'
+import CreateProperty from './pages/CreateProperty'
 function App() {
   return (
     <>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} ></Route>
-          <Route path='/properties' element={<Property />} ></Route>
-          <Route path='/properties/:id' element={<PropertyDetail />} ></Route>
-          <Route path="/profile" element={<Profile />}>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} ></Route>
+        <Route path='/properties' element={<Property />} ></Route>
+        <Route path='/properties/:id' element={<PropertyDetail />} ></Route>
+        <Route path="/profile" element={<Profile />}>
           <Route index element={<MyProfile />} />  {/* Default profile page */}
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
-          <Route path='/login' element={<Login />} ></Route>
-          <Route path='/signup' element={<Signup />} ></Route>
-        </Routes>
+        <Route path='/login' element={<Login />} ></Route>
+        <Route path='/signup' element={<Signup />} ></Route>
+        {/* <Route path='/seller/home' element={<SellerHome />} /> */}
+        <Route path='/seller/create-property' element={<CreateProperty />} />
+        {/* <Route path='/seller/my-properties' element={<MyProperties />} />
+        <Route path='/seller/profile' element={<SellerProfile />} /> */}
+      </Routes>
     </>
   )
 }
