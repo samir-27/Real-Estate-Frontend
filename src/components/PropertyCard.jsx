@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const PropertyCard = ({ property }) => {
     return (
         <div className="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
@@ -26,12 +28,12 @@ const PropertyCard = ({ property }) => {
                         ? property.description.substring(0, 100) + "..."
                         : property.description}
                 </p>
-                <a
-                    href={`/properties/${property._id}`}
+                <Link
+                    to={`/properties/${property._id}`}
                     className="block text-center bg-cyan-500 text-white px-4 py-2 rounded hover:bg-cyan-600 transition"
                 >
                     View Details
-                </a>
+                </Link>
             </div>
         </div>
     );
