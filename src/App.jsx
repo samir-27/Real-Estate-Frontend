@@ -11,7 +11,10 @@ import Profile from './pages/Profile'
 import MyProfile from './components/MyProfile'
 import ChangePassword from './components/ChangePassword'
 import CreateProperty from './pages/CreateProperty'
+import MyProperties from './pages/MyProperties'
 function App() {
+  const userToken = localStorage.getItem("token"); // Get token from localStorage
+
   return (
     <>
       <Navbar />
@@ -27,8 +30,8 @@ function App() {
         <Route path='/signup' element={<Signup />} ></Route>
         {/* <Route path='/seller/home' element={<SellerHome />} /> */}
         <Route path='/seller/create-property' element={<CreateProperty />} />
-        {/* <Route path='/seller/my-properties' element={<MyProperties />} />
-        <Route path='/seller/profile' element={<SellerProfile />} /> */}
+        <Route path='/seller/my-properties' element={<MyProperties token={userToken} />} />
+        {/* <Route path='/seller/profile' element={<SellerProfile />} /> */}
       </Routes>
     </>
   )
