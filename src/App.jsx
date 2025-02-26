@@ -12,6 +12,9 @@ import MyProfile from './components/MyProfile'
 import ChangePassword from './components/ChangePassword'
 import CreateProperty from './pages/CreateProperty'
 import MyProperties from './pages/MyProperties'
+import SellerProfile from './pages/SellerProfile'
+import SProfile from './components/SProfile'
+import SellerUpdatePassword from './components/SellerChangePassword'
 function App() {
   const userToken = localStorage.getItem("token"); // Get token from localStorage
 
@@ -31,7 +34,11 @@ function App() {
         {/* <Route path='/seller/home' element={<SellerHome />} /> */}
         <Route path='/seller/create-property' element={<CreateProperty />} />
         <Route path='/seller/my-properties' element={<MyProperties token={userToken} />} />
-        {/* <Route path='/seller/profile' element={<SellerProfile />} /> */}
+        <Route path='/seller/profile' element={<SellerProfile />} >
+  <Route index element={<SProfile />} />
+  <Route path="change-password" element={<SellerUpdatePassword />} />
+</Route>
+
       </Routes>
     </>
   )
