@@ -35,9 +35,9 @@ function App() {
         <Route path='/seller/create-property' element={<CreateProperty />} />
         <Route path='/seller/my-properties' element={<MyProperties token={userToken} />} />
         <Route path='/seller/profile' element={<SellerProfile />} >
-  <Route index element={<SProfile />} />
-  <Route path="change-password" element={<SellerUpdatePassword />} />
-</Route>
+          <Route index element={<SProfile />} />
+          <Route path="change-password" element={<SellerUpdatePassword />} />
+        </Route>
 
       </Routes>
     </>

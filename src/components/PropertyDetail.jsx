@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -7,6 +8,54 @@ const PropertyDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
+
+  const userTOKEN = localStorage.getItem("token");
+  const decodedToken = jwtDecode(userTOKEN);
+  const userId = decodedToken.id;
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+});
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value });
+};
+
+
+
+const handleFormSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await fetch("http://localhost:3000/api/v1/property/apply", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        property: property._id,
+        seller: property.createdBy,
+        buyer: userId
+      }),
+    });
+    console.log(property.createdBy)
+    if (!res.ok) {
+      throw new Error("Failed to submit application");
+    }
+
+    const data = await res.json();
+    alert(data.message);
+    setIsFormOpen(false);
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -47,9 +96,8 @@ const PropertyDetail = () => {
             key={index}
             src={img}
             alt={`Property ${index + 1}`}
-            className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 ${
-              selectedImage === img ? "border-cyan-500" : "border-transparent"
-            }`}
+            className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 ${selectedImage === img ? "border-cyan-500" : "border-transparent"
+              }`}
             onClick={() => setSelectedImage(img)}
           />
         ))}
@@ -83,6 +131,70 @@ const PropertyDetail = () => {
       <p className="text-gray-500 mt-4">
         Listed on: {new Date(property.listedDate).toLocaleDateString()}
       </p>
+      {isFormOpen && (
+  <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded shadow-lg w-96">
+      <h2 className="text-2xl font-bold mb-4">Apply for Property</h2>
+      <form onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleInputChange}
+          className="w-full mb-2 p-2 border rounded"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          className="w-full mb-2 p-2 border rounded"
+          required
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Your Phone"
+          value={formData.phone}
+          onChange={handleInputChange}
+          className="w-full mb-2 p-2 border rounded"
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={formData.message}
+          onChange={handleInputChange}
+          className="w-full mb-2 p-2 border rounded"
+        ></textarea>
+        <button
+          type="submit"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Submit Application
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsFormOpen(false)}
+          className="ml-2 text-red-500"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
+      <button
+        onClick={() => setIsFormOpen(true)}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Apply for this Property
+      </button>
+
     </div>
   );
 };
