@@ -5,6 +5,7 @@ export default {
     extend: {
       height: {
         '92vh': '92vh',
+        '70vh': '70vh',
         '8vh': '8vh'
       },
     },
