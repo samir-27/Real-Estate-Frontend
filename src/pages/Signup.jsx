@@ -46,13 +46,13 @@ export default function SignupPage() {
             <label className="block mb-2 font-medium">Signup as:</label>
             <div className="flex space-x-4">
               <button 
-                className={`px-4 py-2 rounded ${role === "buyer" ? "bg-cyan-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 py-2 rounded ${role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
                 onClick={() => setRole("buyer")}
               >
                 Buyer
               </button>
               <button 
-                className={`px-4 py-2 rounded ${role === "seller" ? "bg-cyan-500 text-white" : "bg-gray-200"}`}
+                className={`px-4 py-2 rounded ${role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
                 onClick={() => setRole("seller")}
               >
                 Seller
@@ -83,10 +83,10 @@ export default function SignupPage() {
                 required
               />
             </div>
-            <p className="py-2">Already have an account? <Link to="/login"><span className="text-cyan-700">Login</span></Link></p>
+            <p className="py-2">Already have an account? <Link to="/login"><span className="text-blue-700">Login</span></Link></p>
             <button 
               type="submit"
-              className="w-full bg-cyan-500 text-white p-2 rounded hover:bg-cyan-600"
+              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
               disabled={loading}
             >
               {loading ? "Signing up..." : `Signup as ${role.charAt(0).toUpperCase() + role.slice(1)}`}

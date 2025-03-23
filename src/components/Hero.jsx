@@ -15,7 +15,7 @@ const Hero = () => {
         <h1 className="text-6xl font-bold">Find Your Dream Home</h1>
             <p className="text-xl mt-2">Discover properties that fit your budget and lifestyle.</p>
 
-        <button className="mt-6 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 rounded-lg text-lg font-medium">
+        <button className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-lg text-lg font-medium">
           Explore Listings
         </button>
       </div>

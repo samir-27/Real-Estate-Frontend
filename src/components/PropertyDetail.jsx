@@ -96,7 +96,7 @@ const PropertyDetail = () => {
             key={index}
             src={img}
             alt={`Property ${index + 1}`}
-            className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 ${selectedImage === img ? "border-cyan-500" : "border-transparent"
+            className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 ${selectedImage === img ? "border-blue-500" : "border-transparent"
               }`}
             onClick={() => setSelectedImage(img)}
           />

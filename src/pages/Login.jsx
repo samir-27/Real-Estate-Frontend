@@ -51,7 +51,7 @@ export default function LoginPage() {
             <div className="flex space-x-4">
               <button
                 className={`px-4 py-2 rounded ${
-                  role === "buyer" ? "bg-cyan-500 text-white" : "bg-gray-200"
+                  role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
                 onClick={() => setRole("buyer")}
               >
@@ -59,7 +59,7 @@ export default function LoginPage() {
               </button>
               <button
                 className={`px-4 py-2 rounded ${
-                  role === "seller" ? "bg-cyan-500 text-white" : "bg-gray-200"
+                  role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
                 onClick={() => setRole("seller")}
               >
@@ -94,12 +94,12 @@ export default function LoginPage() {
             <p className="py-2">
               Haven't created an account?{" "}
               <Link to={"/signup"}>
-                <span className="text-cyan-700">Sign up</span>
+                <span className="text-blue-700">Sign up</span>
               </Link>
             </p>
             <button
               type="submit"
-              className="w-full bg-cyan-500 text-white p-2 rounded hover:bg-cyan-600"
+              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
               disabled={loading}
             >
               {loading ? "Logging in..." : `Login as ${role.charAt(0).toUpperCase() + role.slice(1)}`}

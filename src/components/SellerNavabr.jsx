@@ -8,7 +8,7 @@ const SellerNavabr = () => {
     const handleLinkClick = () => setIsOpen(false);
   
     return (
-      <nav className="bg-cyan-500 text-white ">
+      <nav className="bg-blue-500 text-white ">
         <div className="container mx-auto flex justify-between items-center p-4 h-8vh">
        
           <Link to="/" className="text-xl font-bold">
@@ -49,7 +49,7 @@ const SellerNavabr = () => {
   
         {/* Mobile Menu (visible when hamburger is toggled) */}
         {isOpen && (
-          <ul className="md:hidden flex flex-col space-y-2 bg-cyan-500 p-4">
+          <ul className="md:hidden flex flex-col space-y-2 bg-blue-500 p-4">
             <li>
               <Link
                 to="/"

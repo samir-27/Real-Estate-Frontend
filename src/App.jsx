@@ -18,6 +18,7 @@ import SellerUpdatePassword from './components/SellerChangePassword';
 import SellerNavabr from './components/SellerNavabr';
 import SellerHome from './pages/SellerHome';
 import { jwtDecode } from 'jwt-decode';
+import About from './pages/About';
 
 function App() {
   const userToken = localStorage.getItem("token");
@@ -41,6 +42,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/properties' element={<Property />} />
         <Route path='/properties/:id' element={<PropertyDetail />} />
+        <Route path='/about' element={<About />} />
         <Route path="/profile" element={<Profile />}>
           <Route index element={<MyProfile />} />
           <Route path="change-password" element={<ChangePassword />} />

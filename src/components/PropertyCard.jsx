@@ -19,7 +19,7 @@ const PropertyCard = ({ property }) => {
                     <h3 className="text-lg font-semibold text-gray-800">
                         {property.title}
                     </h3>
-                    <span className="text-cyan-500 font-bold">
+                    <span className="text-blue-500 font-bold">
                         ${property.price.toLocaleString()}
                     </span>
                 </div>
@@ -30,7 +30,7 @@ const PropertyCard = ({ property }) => {
                 </p>
                 <Link
                     to={`/properties/${property._id}`}
-                    className="block text-center bg-cyan-500 text-white px-4 py-2 rounded hover:bg-cyan-600 transition"
+                    className="block text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
                 >
                     View Details
                 </Link>
