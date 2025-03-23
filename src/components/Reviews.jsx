@@ -96,7 +96,7 @@ const ReviewList = () => {
               <div key={review._id} className="p-4 border rounded-lg shadow-md bg-gray-50">
                 <div className="flex items-center space-x-3">
                   <img
-                    src="https://via.placeholder.com/50"
+                    src={review.userId?.profileImage}
                     alt="Profile"
                     className="w-12 h-12 rounded-full"
                   />

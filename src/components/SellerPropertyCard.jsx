@@ -7,8 +7,12 @@ const SellerPropertyCard = ({ property, onDelete, onUpdate }) => {
   const [formData, setFormData] = useState({
     title: property.title,
     price: property.price,
+    address: property.address,
     bedrooms: property.bedrooms,
     bathrooms: property.bathrooms,
+    city: property.city,
+    state: property.state,
+    description: property.description || "", // Optional description field
   });
 
   const handleUpdate = async (e) => {
@@ -51,56 +55,67 @@ const SellerPropertyCard = ({ property, onDelete, onUpdate }) => {
   };
 
   return (
-    <div className="border border-gray-300 p-4 rounded-lg shadow-md bg-white">
+    <div className="border p-3 border-gray-300  rounded-lg shadow-lg bg-white">
       <img
         src={property.images[0] || "https://via.placeholder.com/300"}
         alt={property.title}
         className="w-full h-48 object-cover rounded-md"
       />
-      <h3 className="mt-2 text-lg font-semibold">{property.title}</h3>
-      <p className="text-gray-600">{property.city}, {property.state}</p>
-      <p className="font-bold">Price: ${property.price}</p>
-      <p>
-        <strong>Bedrooms:</strong> {property.bedrooms} | <strong>Bathrooms:</strong> {property.bathrooms}
-      </p>
+      <div >
 
-      <div className="mt-3 flex space-x-2">
-        <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 p-2 rounded">
+      <div className="">
+        <h3 className="text-2xl font-semibold">{property.title}</h3>
+        <p className="text-gray-600">{property.city}, {property.state}</p>
+        <p className="font-bold text-xl text-blue-500">Price: ${property.price}</p>
+        <p className="mt-2">
+          <strong>Bedrooms:</strong> {property.bedrooms} | <strong>Bathrooms:</strong> {property.bathrooms}
+        </p>
+      </div>
+
+      <div className="mt-4 flex space-x-4">
+        <button onClick={() => setIsModalOpen(true)} className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none">
           Update
         </button>
-        <button onClick={() => onDelete(property._id)} className="bg-red-500 p-2 rounded">
-          Delete
-        </button>
-        <button onClick={fetchApplications} className="bg-green-500 p-2 rounded">
+        <button onClick={fetchApplications} className=" bg-gray-700 hover:bg-gray-800 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none">
           View Applications
         </button>
+        <button onClick={() => onDelete(property._id)} className=" bg-red-600 hover:bg-red-700 text-white p-2 font-semibold  rounded-lg shadow-md focus:outline-none">
+          Delete
+        </button>
+      </div>
       </div>
 
       {isModalOpen && (
         <Modal title="Update Property" onClose={() => setIsModalOpen(false)}>
-          <form onSubmit={handleUpdate} className="space-y-3">
+          <form onSubmit={handleUpdate} className="space-y-2">
             {Object.keys(formData).map((key) => (
-              <input
-                key={key}
-                type={typeof formData[key] === "number" ? "number" : "text"}
-                value={formData[key]}
-                onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
-                required
-                className="w-full p-2 border rounded"
-              />
+              <div key={key} className="flex flex-col space-y-2">
+                <label htmlFor={key} className="text-sm font-medium text-gray-700">{key.charAt(0).toUpperCase() + key.slice(1)}</label>
+                <input
+                  id={key}
+                  type={key === "price" || key === "bedrooms" || key === "bathrooms" ? "number" : "text"}
+                  value={formData[key]}
+                  onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+                  required
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+                />
+              </div>
             ))}
-            <div className="flex space-x-2">
-              <button type="submit" className="bg-green-500 p-2 rounded">Save</button>
+            <div className="flex justify-end space-x-4">
+              <button type="submit" className="bg-blue-600 text-white py-2 w-full rounded-lg shadow-lg focus:outline-none hover:bg-blue-700 text-lg">
+                Save
+              </button>
             </div>
           </form>
         </Modal>
+
       )}
 
       {isApplicationsOpen && (
         <Modal title="Property Applications" onClose={() => setIsApplicationsOpen(false)}>
           {applications.length > 0 ? (
             applications.map((app) => (
-              <div key={app._id} className="border p-4 rounded-lg mb-3">
+              <div key={app._id} className="border p-4 rounded-lg mb-3 bg-gray-50 shadow-sm">
                 <p><strong>Name:</strong> {app.name}</p>
                 <p><strong>Email:</strong> {app.email}</p>
                 <p><strong>Phone:</strong> {app.phone}</p>
@@ -118,10 +133,12 @@ const SellerPropertyCard = ({ property, onDelete, onUpdate }) => {
 
 const Modal = ({ title, children, onClose }) => (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-lg w-[500px] max-h-[80vh] overflow-y-auto">
-      <h2 className="text-xl font-bold mb-4">{title}</h2>
+    <div className="bg-white p-8 rounded-lg w-[500px] max-h-[80vh] overflow-y-auto shadow-lg">
+      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
       {children}
-      <button onClick={onClose} className="w-full px-4 py-2 bg-gray-500 text-white rounded mt-3">Close</button>
+      <button onClick={onClose} className="w-full px-6 py-2 bg-gray-600 text-white rounded-lg mt-4 hover:bg-gray-700">
+        Close
+      </button>
     </div>
   </div>
 );

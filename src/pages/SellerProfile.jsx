@@ -1,6 +1,13 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const SellerProfile = () => {
+  const navigate = useNavigate(); // Use the hook here
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate('/login'); // Use navigate to redirect
+  };
+
   return (
     <div className="container mx-auto mt-10">
       <div className="flex bg-white rounded-xl overflow-hidden border border-gray-200">
@@ -13,16 +20,19 @@ const SellerProfile = () => {
               to="/seller/profile"
               className="flex items-center gap-3 px-5 py-3 rounded-lg bg-white shadow-md hover:bg-blue-500 hover:text-white transition-all duration-300"
             >
-              🏠 <span className="font-semibold text-lg">sellerProfile</span>
+              <span className="font-semibold text-lg">Seller Profile</span>
             </Link>
             <Link
               to="/seller/profile/change-password"
-              className="fle            x items-center gap-3 px-5 py-3 rounded-lg bg-white shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300"
+              className="flex items-center gap-3 px-5 py-3 rounded-lg bg-white shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300"
             >
-              🔒 <span className="font-semibold text-lg">Change Password</span>
+              <span className="font-semibold text-lg">Change Password</span>
             </Link>
-            <button className="flex items-center gap-3 px-5 py-3 mt-auto bg-red-500 text-white rounded-lg shadow-lg hover:bg-red-600 transition-all duration-300">
-              🚪 <span className="font-semibold text-lg">Logout</span>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-5 py-3 mt-auto bg-red-500 text-white rounded-lg shadow-lg hover:bg-red-600 transition-all duration-300"
+            >
+              <span className="font-semibold text-lg">Logout</span>
             </button>
           </nav>
         </div>

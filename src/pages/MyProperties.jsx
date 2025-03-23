@@ -50,8 +50,7 @@ const MyProperties = ({ token }) => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2>My Properties</h2>
+    <div className="container mx-auto py-10">
       {loading ? (
         <p>Loading...</p>
       ) : properties.length === 0 ? (

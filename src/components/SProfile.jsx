@@ -101,16 +101,7 @@ const SProfile = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Profile Image */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Profile Image
-          </label>
-          <input
-            type="file"
-            onChange={handleImageChange}
-            className="mt-1 block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-white file:bg-blue-500 hover:file:bg-blue-600 cursor-pointer"
-          />
-        </div>
+        <img src={formData.profileImage} className="h-24" />
 
         {/* Name */}
         <div>
