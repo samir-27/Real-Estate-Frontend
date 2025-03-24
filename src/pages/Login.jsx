@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage({ updateRole }) {
   const [role, setRole] = useState("buyer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +25,7 @@ export default function LoginPage() {
       if (!response.ok) throw new Error(data.message || "Login failed");
 
       localStorage.setItem("token", data.token);
+      updateRole(); // Update role immediately
       alert("Login successful!");
       navigate("/");
     } catch (err) {
@@ -50,7 +51,7 @@ export default function LoginPage() {
             <label className="block mb-2 font-medium">Login as:</label>
             <div className="flex space-x-4">
               <button
-                className={`px-4 py-2 rounded ${
+                className={`px-4 py-2 rounded cursor-pointer ${
                   role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
                 onClick={() => setRole("buyer")}
@@ -58,7 +59,7 @@ export default function LoginPage() {
                 Buyer
               </button>
               <button
-                className={`px-4 py-2 rounded ${
+                className={`px-4 py-2 rounded cursor-pointer ${
                   role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
                 onClick={() => setRole("seller")}

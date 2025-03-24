@@ -1,6 +1,10 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import './index.css';
+import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
+// Pages & Components
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
@@ -15,39 +19,45 @@ import MyProperties from './pages/MyProperties';
 import SellerProfile from './pages/SellerProfile';
 import SProfile from './components/SProfile';
 import SellerUpdatePassword from './components/SellerChangePassword';
-import SellerNavabr from './components/SellerNavabr';
+import SellerNavbar from './components/SellerNavabr'; // Fixing import typo
 import SellerHome from './pages/SellerHome';
-import { jwtDecode } from 'jwt-decode';
 import About from './pages/About';
 
 function App() {
-  const userToken = localStorage.getItem("token");
+  const [role, setRole] = useState(null);
 
-  let role = null;
-  if (userToken) {
-    try {
-      const decodedToken = jwtDecode(userToken);
-      role = decodedToken.role;
-    } catch (error) {
-      console.error("Invalid token",error);
-      localStorage.removeItem("token");
+  const getRoleFromToken = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        return jwtDecode(token).role;
+      } catch {
+        console.error("Invalid token");
+        localStorage.removeItem("token");
+      }
     }
-  }
- 
+    return null;
+  };
+
+  useEffect(() => {
+    setRole(getRoleFromToken());
+  }, []);
+
+  const updateRole = () => setRole(getRoleFromToken());
+
   return (
     <>
-     
-      {role === "seller" ? <SellerNavabr /> :  <Navbar /> }
+      {role === "seller" ? <SellerNavbar /> : <Navbar />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/properties' element={<Property />} />
         <Route path='/properties/:id' element={<PropertyDetail />} />
         <Route path='/about' element={<About />} />
-        <Route path="/profile" element={<Profile />}>
+        <Route path='/profile' element={<Profile />}>
           <Route index element={<MyProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login updateRole={updateRole} />} />
         <Route path='/signup' element={<Signup />} />
 
         {/* Seller Routes - Protected */}
@@ -55,16 +65,14 @@ function App() {
           <>
             <Route path='/seller/home' element={<SellerHome />} />
             <Route path='/seller/create-property' element={<CreateProperty />} />
-            <Route path='/seller/my-properties' element={<MyProperties token={userToken} />} />
+            <Route path='/seller/my-properties' element={<MyProperties />} />
             <Route path='/seller/profile' element={<SellerProfile />}>
               <Route index element={<SProfile />} />
               <Route path="change-password" element={<SellerUpdatePassword />} />
             </Route>
           </>
         ) : (
-          <>
-            <Route path='/seller/*' element={<Navigate to="/" />} />
-          </>
+          <Route path='/seller/*' element={<Navigate to="/" />} />
         )}
       </Routes>
     </>
