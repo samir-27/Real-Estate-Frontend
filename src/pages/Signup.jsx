@@ -36,7 +36,7 @@ export default function SignupPage() {
   return (
     <div className="flex h-screen">
       <div className="w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?cs=srgb&dl=pexels-binyaminmellish-1396122.jpg&fm=jpg')" }}></div>
-      <div className="w-1/2 flex items-center justify-center bg-gray-100">
+      <div className="w-1/2 flex items-center justify-center bg-blue-100">
         <div className="bg-white p-8 shadow-md rounded-lg w-96">
           <h2 className="text-2xl font-bold mb-6 text-center">Signup</h2>
 

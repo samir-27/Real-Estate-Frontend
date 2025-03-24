@@ -13,7 +13,7 @@ const SellerProfile = () => {
       <div className="flex bg-white rounded-xl overflow-hidden border border-gray-200">
         
         {/* Sidebar */}
-        <div className="w-1/4 p-6 bg-gray-100 flex flex-col gap-6 border-r border-gray-200">
+        <div className="w-1/4 p-6 bg-blue-100 flex flex-col gap-6 border-r">
           
           <nav className="flex flex-col gap-4">
             <Link

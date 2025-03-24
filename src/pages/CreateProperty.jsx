@@ -69,7 +69,10 @@ const CreateProperty = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+    <div className="bg-blue-100 h-92vh pt-10">
+
+
+    <div className="container mx-auto bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Create Property</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="title" placeholder="Title" onChange={handleChange} className="border p-2 rounded" required />
@@ -123,6 +126,7 @@ const CreateProperty = () => {
         </button>
       </form>
     </div>
+            </div>
   );
 };
 

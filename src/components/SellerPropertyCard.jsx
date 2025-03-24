@@ -56,30 +56,31 @@ const SellerPropertyCard = ({ property, onDelete, onUpdate }) => {
 
   return (
     <div className="border p-3 border-gray-300  rounded-lg shadow-lg bg-white">
+
+      <div >
+
       <img
         src={property.images[0] || "https://via.placeholder.com/300"}
         alt={property.title}
         className="w-full h-48 object-cover rounded-md"
       />
-      <div >
-
-      <div className="">
-        <h3 className="text-2xl font-semibold">{property.title}</h3>
+      <div className="mt-4">
+        <h3 className="text-2xl font-semibold text-gray-800">{property.title}</h3>
         <p className="text-gray-600">{property.city}, {property.state}</p>
         <p className="font-bold text-xl text-blue-500">Price: ${property.price}</p>
-        <p className="mt-2">
+        <p className="mt-2 text-gray-700">
           <strong>Bedrooms:</strong> {property.bedrooms} | <strong>Bathrooms:</strong> {property.bathrooms}
         </p>
       </div>
 
       <div className="mt-4 flex space-x-4">
-        <button onClick={() => setIsModalOpen(true)} className=" bg-blue-600 hover:bg-blue-700 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none">
+        <button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
           Update
         </button>
-        <button onClick={fetchApplications} className=" bg-gray-700 hover:bg-gray-800 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none">
+        <button onClick={fetchApplications} className="bg-gray-700 hover:bg-gray-800 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
           View Applications
         </button>
-        <button onClick={() => onDelete(property._id)} className=" bg-red-600 hover:bg-red-700 text-white p-2 font-semibold  rounded-lg shadow-md focus:outline-none">
+        <button onClick={() => onDelete(property._id)} className="bg-red-600 hover:bg-red-700 text-white p-2 font-semibold rounded-lg shadow-md focus:outline-none transition duration-200">
           Delete
         </button>
       </div>

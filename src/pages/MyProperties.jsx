@@ -50,6 +50,7 @@ const MyProperties = ({ token }) => {
   };
 
   return (
+    <div className="bg-blue-50" >
     <div className="container mx-auto py-10">
       {loading ? (
         <p>Loading...</p>
@@ -62,6 +63,7 @@ const MyProperties = ({ token }) => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

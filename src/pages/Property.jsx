@@ -99,7 +99,10 @@ const Property = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className='bg-blue-50'>
+
+   
+    <div className="container mx-auto p-4 ">
       <div className="flex flex-col md:flex-row">
         {/* Left side: Filters */}
         <div className="md:w-1/4 p-4 border-r-2 border-gray-400">
@@ -268,6 +271,7 @@ const Property = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };
