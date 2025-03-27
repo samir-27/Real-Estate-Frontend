@@ -81,7 +81,7 @@ const PropertyDetail = () => {
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div className="container mx-auto shadow-lg rounded-lg mt-6">
+    <div className="container mx-auto mb-10 rounded-lg mt-6">
       {/* Main Image */}
       <img
         src={selectedImage}
@@ -172,14 +172,14 @@ const PropertyDetail = () => {
               ></textarea>
               <button
                 type="submit"
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
                 Submit Application
               </button>
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="ml-2 text-red-500"
+                className="ml-2 px-4 py-2 rounded text-white bg-gray-500"
               >
                 Cancel
               </button>

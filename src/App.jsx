@@ -22,6 +22,7 @@ import SellerUpdatePassword from './components/SellerChangePassword';
 import SellerNavbar from './components/SellerNavabr';
 import SellerHome from './pages/SellerHome';
 import About from './pages/About';
+import Footer from './components/Footer';
 
 function App() {
   const [role, setRole] = useState(null);
@@ -75,6 +76,7 @@ function App() {
           <Route path='/seller/*' element={<Navigate to="/" />} />
         )}
       </Routes>
+      <Footer />
     </>
   );
 }
