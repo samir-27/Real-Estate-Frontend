@@ -12,6 +12,8 @@ const MyProfile = () => {
     profileImage: null,
   });
 
+  const [errors, setErrors] = useState({});
+
   const userTOKEN = localStorage.getItem("token");
   const decodedToken = jwtDecode(userTOKEN);
   const userId = decodedToken.id;
@@ -43,40 +45,60 @@ const MyProfile = () => {
     fetchUser();
   }, [API_URL]);
 
+  // Validation Function
+  const validateInput = (name, value) => {
+    let error = "";
+
+    if (name === "phone") {
+      const phonePattern = /^[6-9]\d{9}$/; // Ensures 10-digit phone starting with 6-9
+      if (!phonePattern.test(value)) {
+        error = "Phone number must be 10 digits and start with 6-9.";
+      }
+    }
+
+    if (name === "pinCode") {
+      const pinCodePattern = /^\d{6}$/; // Ensures exactly 6 digits
+      if (!pinCodePattern.test(value)) {
+        error = "Pin code must be exactly 6 digits.";
+      }
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle image upload
-  const handleImageChange = (e) => {
-    if (e.target.files.length > 0) {
-      setFormData((prev) => ({ ...prev, profileImage: e.target.files[0] }));
-    }
+    validateInput(name, value);
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("pinCode", formData.pinCode);
-    formDataToSend.append("city", formData.city);
-    formDataToSend.append("state", formData.state);
-    
-    if (formData.profileImage && typeof formData.profileImage !== "string") {
-      formDataToSend.append("profileImage", formData.profileImage);
+    // Check if there are validation errors before submitting
+    if (errors.phone || errors.pinCode) {
+      alert("Please fix validation errors before submitting.");
+      return;
     }
-    
+
+    const userData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      pinCode: formData.pinCode,
+      city: formData.city,
+      state: formData.state,
+    };
 
     try {
       const response = await fetch(API_URL, {
         method: "PUT",
-        body: formDataToSend,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       });
 
       if (!response.ok) throw new Error("Failed to update profile");
@@ -135,11 +157,12 @@ const MyProfile = () => {
             required
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
           />
+          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
         </div>
 
         {/* pinCode */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">pinCode</label>
+          <label className="block text-sm font-medium text-gray-700">Pin Code</label>
           <input
             type="text"
             name="pinCode"
@@ -148,6 +171,7 @@ const MyProfile = () => {
             required
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
           />
+          {errors.pinCode && <p className="text-red-500 text-sm">{errors.pinCode}</p>}
         </div>
 
         {/* City */}

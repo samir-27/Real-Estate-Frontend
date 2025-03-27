@@ -1,4 +1,5 @@
 import React from 'react';
+import VisionMission from '../components/VisionMission';
 
 const About = () => {
   return (
@@ -39,7 +40,7 @@ const About = () => {
         </div>
       </section>
       
-
+    <VisionMission />
 
    
     </div>

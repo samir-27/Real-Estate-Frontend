@@ -19,7 +19,7 @@ import MyProperties from './pages/MyProperties';
 import SellerProfile from './pages/SellerProfile';
 import SProfile from './components/SProfile';
 import SellerUpdatePassword from './components/SellerChangePassword';
-import SellerNavbar from './components/SellerNavabr'; // Fixing import typo
+import SellerNavbar from './components/SellerNavabr';
 import SellerHome from './pages/SellerHome';
 import About from './pages/About';
 

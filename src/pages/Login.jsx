@@ -9,11 +9,18 @@ export default function LoginPage({ updateRole }) {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
+    if (!validateEmail(email)) {
+      setError("Invalid email format.");
+      return;
+    }
+
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:3000/api/v1/auth/login", {
         method: "POST",
@@ -25,11 +32,11 @@ export default function LoginPage({ updateRole }) {
       if (!response.ok) throw new Error(data.message || "Login failed");
 
       localStorage.setItem("token", data.token);
-      updateRole(); // Update role immediately
+      updateRole();
       alert("Login successful!");
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError("Incorrect email or password.");
     } finally {
       setLoading(false);
     }
@@ -51,6 +58,7 @@ export default function LoginPage({ updateRole }) {
             <label className="block mb-2 font-medium">Login as:</label>
             <div className="flex space-x-4">
               <button
+                type="button"
                 className={`px-4 py-2 rounded cursor-pointer ${
                   role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
@@ -59,6 +67,7 @@ export default function LoginPage({ updateRole }) {
                 Buyer
               </button>
               <button
+                type="button"
                 className={`px-4 py-2 rounded cursor-pointer ${
                   role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}

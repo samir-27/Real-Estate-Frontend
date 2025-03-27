@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SellerPropertyCard from "../components/SellerPropertyCard";
 
-const MyProperties = ({ token }) => {
+const MyProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token"); // Get token if not passed as a prop
 
+  if (!token) {
+    console.error("No token available");
+    return;
+  }
   useEffect(() => {
     const fetchUserProperties = async () => {
       try {
@@ -23,6 +28,7 @@ const MyProperties = ({ token }) => {
         setLoading(false);
       }
     };
+    console.log("Token being sent:", token);
 
     fetchUserProperties();
   }, [token]);

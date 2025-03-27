@@ -74,13 +74,13 @@ const SellerPropertyCard = ({ property, onDelete, onUpdate }) => {
       </div>
 
       <div className="mt-4 flex space-x-4">
-        <button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
+        <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
           Update
         </button>
-        <button onClick={fetchApplications} className="bg-gray-700 hover:bg-gray-800 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
+        <button onClick={fetchApplications} className="bg-gray-500 hover:bg-gray-600 text-white font-semibold p-2 rounded-lg shadow-md focus:outline-none transition duration-200">
           View Applications
         </button>
-        <button onClick={() => onDelete(property._id)} className="bg-red-600 hover:bg-red-700 text-white p-2 font-semibold rounded-lg shadow-md focus:outline-none transition duration-200">
+        <button onClick={() => onDelete(property._id)} className="bg-red-500 hover:bg-red-600 text-white p-2 font-semibold rounded-lg shadow-md focus:outline-none transition duration-200">
           Delete
         </button>
       </div>

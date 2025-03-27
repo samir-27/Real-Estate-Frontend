@@ -6,6 +6,7 @@ const UpdatePassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [retypeNewPassword, setRetypeNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const userTOKEN = localStorage.getItem("token");
   if (!userTOKEN) {
@@ -16,11 +17,40 @@ const UpdatePassword = () => {
   const decodedToken = jwtDecode(userTOKEN);
   const userId = decodedToken.id;
 
+  // Password validation function
+  const validatePassword = (password) => {
+    const minLength = /.{8,}/; // At least 8 characters
+    const specialChar = /[!@#$%^&*(),.?":{}|<>]/; // At least one special character
+    const number = /[0-9]/; // At least one number
+
+    if (!minLength.test(password)) {
+      return "Password must be at least 8 characters long.";
+    }
+    if (!specialChar.test(password)) {
+      return "Password must contain at least one special character.";
+    }
+    if (!number.test(password)) {
+      return "Password must contain at least one numeric digit.";
+    }
+    return "";
+  };
+
+  const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+    setPasswordError(validatePassword(value));
+  };
+
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
 
+    if (passwordError) {
+      setMessage("Fix password errors before submitting.");
+      return;
+    }
+
     if (newPassword !== retypeNewPassword) {
-      setMessage("New passwords do not match");
+      setMessage("New passwords do not match.");
       return;
     }
 
@@ -41,7 +71,7 @@ const UpdatePassword = () => {
         throw new Error(data.message || "Something went wrong");
       }
 
-      setMessage(data.message);
+      setMessage("Password updated successfully!");
     } catch (error) {
       setMessage(error.message);
     }
@@ -68,10 +98,11 @@ const UpdatePassword = () => {
             type="password"
             placeholder="New Password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={handleNewPasswordChange}
             required
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
 
           <input
             type="password"
@@ -85,6 +116,7 @@ const UpdatePassword = () => {
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            disabled={!!passwordError}
           >
             Update Password
           </button>
