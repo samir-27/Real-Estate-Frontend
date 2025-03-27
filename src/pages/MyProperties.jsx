@@ -56,7 +56,7 @@ const MyProperties = () => {
   };
 
   return (
-    <div className="bg-blue-50" >
+    <div className="bg-blue-50 min-h-screen" >
     <div className="container mx-auto py-10">
       {loading ? (
         <p>Loading...</p>
