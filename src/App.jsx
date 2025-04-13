@@ -26,13 +26,15 @@ import Footer from './components/Footer';
 
 function App() {
   const [role, setRole] = useState(null);
-  const location = useLocation(); // 👈 get current route
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
 
   const getRoleFromToken = () => {
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        return jwtDecode(token).role;
+        const decoded = jwtDecode(token);
+        return decoded.role;
       } catch {
         console.error("Invalid token");
         localStorage.removeItem("token");
@@ -42,10 +44,31 @@ function App() {
   };
 
   useEffect(() => {
-    setRole(getRoleFromToken());
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setRole(decoded.role);
+        setIsAuthenticated(true);
+      } catch {
+        console.error("Invalid token");
+        localStorage.removeItem("token");
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
-  const updateRole = () => setRole(getRoleFromToken());
+  const updateRole = () => {
+    const role = getRoleFromToken();
+    setRole(role);
+    setIsAuthenticated(!!role);
+  };
+
+  const ProtectedRoute = ({ children }) => {
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
+  };
 
   const hideNavAndFooter = ["/login", "/signup"].includes(location.pathname);
 
@@ -54,30 +77,77 @@ function App() {
       {!hideNavAndFooter && (role === "seller" ? <SellerNavbar /> : <Navbar />)}
 
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/properties' element={<Property />} />
-        <Route path='/properties/:id' element={<PropertyDetail />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/profile' element={<Profile />}>
+        <Route path="/login" element={<Login updateRole={updateRole} />} />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route path="/" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/about" element={
+          <ProtectedRoute>
+            <About />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/properties" element={
+          <ProtectedRoute>
+            <Property />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/properties/:id" element={
+          <ProtectedRoute>
+            <PropertyDetail />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }>
           <Route index element={<MyProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
-        <Route path='/login' element={<Login updateRole={updateRole} />} />
-        <Route path='/signup' element={<Signup />} />
 
-        {role === "seller" ? (
+        {role === "seller" && (
           <>
-            <Route path='/seller/home' element={<SellerHome />} />
-            <Route path='/seller/create-property' element={<CreateProperty />} />
-            <Route path='/seller/my-properties' element={<MyProperties />} />
-            <Route path='/seller/profile' element={<SellerProfile />}>
+            <Route path="/seller/home" element={
+              <ProtectedRoute>
+                <SellerHome />
+              </ProtectedRoute>
+            } />
+            <Route path="/seller/create-property" element={
+              <ProtectedRoute>
+                <CreateProperty />
+              </ProtectedRoute>
+            } />
+            <Route path="/seller/my-properties" element={
+              <ProtectedRoute>
+                <MyProperties />
+              </ProtectedRoute>
+            } />
+            <Route path="/seller/profile" element={
+              <ProtectedRoute>
+                <SellerProfile />
+              </ProtectedRoute>
+            }>
               <Route index element={<SProfile />} />
               <Route path="change-password" element={<SellerUpdatePassword />} />
             </Route>
           </>
-        ) : (
-          <Route path='/seller/*' element={<Navigate to="/" />} />
         )}
+
+        {/* Catch-all for unauthorized seller access */}
+        {!isAuthenticated || role !== "seller" ? (
+          <Route path="/seller/*" element={<Navigate to="/"  />} />
+        ) : null}
+
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"}  />} />
       </Routes>
 
       {!hideNavAndFooter && <Footer />}
