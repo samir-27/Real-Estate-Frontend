@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative flex items-center justify-center h-screen">
       {/* Background Image */}
@@ -17,7 +19,7 @@ const Hero = () => {
         <h1 className="text-5xl md:text-6xl font-bold leading-tight">Find Your Dream Home</h1>
         <p className="text-lg md:text-xl mt-4">Discover properties that fit your budget and lifestyle.</p>
 
-        <button className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium transition duration-300">
+        <button onClick={() => navigate("/properties") } className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium transition duration-300">
           Explore Listings
         </button>
       </div>

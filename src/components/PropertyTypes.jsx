@@ -26,7 +26,7 @@ const propertyTypes = [
 const PropertyTypes = () => {
   return (
     <div className='mx-auto container'>
-        <h2 className="text-2xl font-semibold text-gray-800 py-8">Explore Property Types</h2>   
+        <h2 className="text-4xl font-bold py-8">Property Types</h2>   
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {propertyTypes.map((property) => (
         <div key={property.id} className="bg-white border shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">

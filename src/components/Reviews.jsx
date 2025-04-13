@@ -77,7 +77,7 @@ const ReviewList = () => {
 
     <div className="mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold text-gray-800">Customer Reviews</h2>
+        <h2 className="text-4xl font-bold">Reviews</h2>
         <button
           onClick={() => setModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200"

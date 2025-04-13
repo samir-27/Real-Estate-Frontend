@@ -113,7 +113,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="mx-auto bg-white p-6 border border-gray-200">
+    <div className="mx-auto h-92vh bg-white p-6 border border-gray-200">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Update Profile</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">

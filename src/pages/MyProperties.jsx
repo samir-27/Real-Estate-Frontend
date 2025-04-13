@@ -4,7 +4,7 @@ import SellerPropertyCard from "../components/SellerPropertyCard";
 const MyProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token"); // Get token if not passed as a prop
+  const token = localStorage.getItem("token");
 
   if (!token) {
     console.error("No token available");
@@ -33,7 +33,6 @@ const MyProperties = () => {
     fetchUserProperties();
   }, [token]);
 
-  // 🗑️ Delete Property
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/api/v1/property/deleteproperty/${id}`, {
@@ -48,7 +47,6 @@ const MyProperties = () => {
     }
   };
 
-  // 🔄 Update Property (After API call, update UI)
   const handleUpdate = (updatedProperty) => {
     setProperties((prev) =>
       prev.map((property) => (property._id === updatedProperty._id ? updatedProperty : property))

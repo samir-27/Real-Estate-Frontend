@@ -3,7 +3,7 @@ import VisionMission from '../components/VisionMission';
 
 const About = () => {
   return (
-    <div className='bg-blue-50 text-gray-900'>
+    <div className='bg-blue-50 text-gray-900 pb-10'>
       {/* Hero Section */}
       <section className='relative h-92vh text-white text-center flex items-center justify-center px-4'>
         <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10'></div>

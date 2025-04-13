@@ -34,7 +34,7 @@ export default function LoginPage({ updateRole }) {
       localStorage.setItem("token", data.token);
       updateRole();
       alert("Login successful!");
-      navigate("/");
+      role === "seller" ? navigate("/seller/home") : navigate("/");
     } catch (err) {
       setError("Incorrect email or password.");
     } finally {
@@ -59,18 +59,16 @@ export default function LoginPage({ updateRole }) {
             <div className="flex space-x-4">
               <button
                 type="button"
-                className={`px-4 py-2 rounded cursor-pointer ${
-                  role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
+                className={`px-4 py-2 rounded cursor-pointer ${role === "buyer" ? "bg-blue-500 text-white" : "bg-gray-200"
+                  }`}
                 onClick={() => setRole("buyer")}
               >
                 Buyer
               </button>
               <button
                 type="button"
-                className={`px-4 py-2 rounded cursor-pointer ${
-                  role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
+                className={`px-4 py-2 rounded cursor-pointer ${role === "seller" ? "bg-blue-500 text-white" : "bg-gray-200"
+                  }`}
                 onClick={() => setRole("seller")}
               >
                 Seller

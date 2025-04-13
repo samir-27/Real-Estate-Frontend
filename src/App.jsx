@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import { useEffect, useState } from 'react';
@@ -26,6 +26,7 @@ import Footer from './components/Footer';
 
 function App() {
   const [role, setRole] = useState(null);
+  const location = useLocation(); // 👈 get current route
 
   const getRoleFromToken = () => {
     const token = localStorage.getItem("token");
@@ -46,9 +47,12 @@ function App() {
 
   const updateRole = () => setRole(getRoleFromToken());
 
+  const hideNavAndFooter = ["/login", "/signup"].includes(location.pathname);
+
   return (
     <>
-      {role === "seller" ? <SellerNavbar /> : <Navbar />}
+      {!hideNavAndFooter && (role === "seller" ? <SellerNavbar /> : <Navbar />)}
+
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/properties' element={<Property />} />
@@ -61,7 +65,6 @@ function App() {
         <Route path='/login' element={<Login updateRole={updateRole} />} />
         <Route path='/signup' element={<Signup />} />
 
-        {/* Seller Routes - Protected */}
         {role === "seller" ? (
           <>
             <Route path='/seller/home' element={<SellerHome />} />
@@ -76,7 +79,8 @@ function App() {
           <Route path='/seller/*' element={<Navigate to="/" />} />
         )}
       </Routes>
-      <Footer />
+
+      {!hideNavAndFooter && <Footer />}
     </>
   );
 }

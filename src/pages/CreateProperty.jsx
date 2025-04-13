@@ -60,7 +60,7 @@ const CreateProperty = () => {
       }
 
       const data = await response.json();
-      alert("Property Created Successfully! 🎉");
+      alert("Property Created Successfully!");
 
       // Reset form fields and images
       setFormData({

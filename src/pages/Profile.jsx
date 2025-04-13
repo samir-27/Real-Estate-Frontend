@@ -14,7 +14,7 @@ const Profile = () => {
   
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto mt-10 ">
       <div className="flex bg-white rounded-xl overflow-hidden border border-gray-200">
         
         {/* Sidebar */}

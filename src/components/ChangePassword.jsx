@@ -79,8 +79,8 @@ const UpdatePassword = () => {
 
   return (
     <div className="">
-      <div className="bg-white p-8">
-        <h2 className="text-2xl mb-6 text-gray-700">Update Password</h2>
+      <div className="bg-white p-8 h-92vh">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Update Password</h2>
 
         {message && <p className="text-center text-red-500 mb-4">{message}</p>}
 
